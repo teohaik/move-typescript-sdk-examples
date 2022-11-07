@@ -1,10 +1,12 @@
-
+/**
+ * Retrieves all Objects owned by a given address
+ */
 import { JsonRpcProvider } from '@mysten/sui.js';
 
 let message: string = 'Hello, Sui!';
 console.log(message);
 
-const myAddress = '0x3e68b87e765d62a8c7ab8c2fbb284ad72d750e17';
+const myAddress = '0x3e68b87e765d62a8c7ab8c2fbb284ad72d750e17'; //Example Address
 
 
 const provider = new JsonRpcProvider('https://fullnode.devnet.sui.io:443');
