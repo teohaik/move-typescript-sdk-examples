@@ -10,6 +10,8 @@ First of all, make sure you have node JS installed.  Run `npm --version` to chec
 
 Create a local development folder, navigate to it through terminal, and run  `npm install @mysten/sui.js` to download sui sdk and prepare your local development environment.
 
+## Execution 
+
 Typescript need to be transpiled to javascript to be ready for execution. However we can run it with a single command: ts-node. 
 
 To run each file use: `ts-node FILENAME.ts` for example: `ts-node 01_ObjectsByAddress.ts` 
