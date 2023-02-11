@@ -3,10 +3,27 @@
  */
 import { JsonRpcProvider } from '@mysten/sui.js';
 
+
+
 let message: string = 'Hello, Sui!';
 console.log(message);
 
+console.log("Version = ", process.env.npm_package_version);
+console.log("name = ", process.env.npm_package_name);
+
+
+
+
+
+
+
+
+
+
+
+
 const myAddress = '0x3e68b87e765d62a8c7ab8c2fbb284ad72d750e17'; //Example Address
+
 
 
 const provider = new JsonRpcProvider('https://fullnode.devnet.sui.io:443');
