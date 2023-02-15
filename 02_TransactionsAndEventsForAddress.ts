@@ -18,23 +18,23 @@ provider.getTransactionsForAddress(myAddress)
             getEventsForTransaction(transactions);
         }
     });
-
-function getEventsForTransaction(transactions: any) {
-    var transactionToGetEvents = transactions[0];
-    const txEvents = provider.getEventsByTransaction(
-        transactionToGetEvents
-    ).then(function (events) {
-        console.log("Events for transaction " + transactionToGetEvents);
-        console.log(events);
-    });
-}
-
-const senderEvents =  provider.getEventsBySender(
-    myAddress
-  ).then(function (events) {
-    console.log("Events by sender "+myAddress);
-    console.log(events);
-} );
+//
+// function getEventsForTransaction(transactions: any) {
+//     var transactionToGetEvents = transactions[0];
+//     const txEvents = provider.getEventsByTransaction(
+//         transactionToGetEvents
+//     ).then(function (events) {
+//         console.log("Events for transaction " + transactionToGetEvents);
+//         console.log(events);
+//     });
+// }
+//
+// const senderEvents =  provider.getEventsBySender(
+//     myAddress
+//   ).then(function (events) {
+//     console.log("Events by sender "+myAddress);
+//     console.log(events);
+// } );
 
 
 

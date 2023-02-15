@@ -1,25 +1,38 @@
-import { JsonRpcProvider, SuiEventEnvelope } from '@mysten/sui.js';
-const provider = new JsonRpcProvider();
+import {JsonRpcProvider, Network, SuiEventEnvelope} from '@mysten/sui.js';
+import {EventType} from "@mysten/sui.js/src/types/events";
+
+const provider = new JsonRpcProvider(Network.DEVNET);
+
+// const devNftSub = provider.subscribeEvent(
+//     {
+//         All: [
+//             { EventType: 'MoveEvent' },
+//             { Package: '0x7f0164a2585e2b66d9f2925824a8940b082ab6cf' },
+//             { Module: 'capy_market' },
+//         ],
+//     },
+//     (event: SuiEventEnvelope) => {
+//       console.log("Event happened!")
+//       console.log(event);
+//     }
+// );
+
+//4Ha7MDipUhN9KeF3HrecN6KkFf1w2W8LXToPD9Pj4rZ5
 
 
-  //for(let i=0; i<100; i++){
-  // calls RPC method 'sui_subscribeEvent' with params:
-  // [ { SenderAddress: '0xbff6ccc8707aa517b4f1b95750a2a8c666012df3' } ]
-  const subscriptionId = provider.subscribeEvent(
-    { SenderAddress: '0xf2fd5d109a159329c96307f1ad57ac3d6017fd95' },
+const devNftSu2b = provider.subscribeEvent(
+    {
+        All: [
+         //   { Module: 'capy_item' },
+            { SenderAddress: '0x6367e016ee28c7c958e2f2fc7b0fd0d6cf8cfd83' },
+        ],
+    },
     (event: SuiEventEnvelope) => {
-      console.log("Event happened! "+event);
-      
-      // handle subscription notification message here. This function is called once per subscription message.
+        console.log("frenemies Event happened!")
+        console.log(event);
     }
-  );
-  console.log ("Block statement execution no.");
- // }
+);
 
-
-function delay(ms: number) {
-  return new Promise( resolve => setTimeout(resolve, ms) );
-}
 // later, to unsubscribe
 // calls RPC method 'sui_unsubscribeEvent' with params: [ subscriptionId ]
 //const subFoundAndRemoved = await provider.unsubscribeEvent(subscriptionId);
