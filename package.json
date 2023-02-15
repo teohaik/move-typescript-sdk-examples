@@ -1,0 +1,12 @@
+{
+  "name": "sui-typescript-sdk-examples",
+  "version": "0.1.0",
+
+  "dependencies": {
+    "@mysten/sui.js": "^0.26.0",
+    "ts-node": "^10.9.1"
+  },
+  "scripts": {
+    "start": "node 01_ObjectsByAddress.js"
+  }
+}
