@@ -24,11 +24,11 @@ const devNftSu2b = provider.subscribeEvent(
     {
         All: [
          //   { Module: 'capy_item' },
-            { SenderAddress: '0x6367e016ee28c7c958e2f2fc7b0fd0d6cf8cfd83' },
+            { SenderAddress: '0x26ed2107a7276a91adf28497c9bdf04da3e10a71' },
         ],
     },
     (event: SuiEventEnvelope) => {
-        console.log("frenemies Event happened!")
+        console.log(" Event happened!")
         console.log(event);
     }
 );

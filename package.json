@@ -1,9 +1,11 @@
 {
   "name": "sui-typescript-sdk-examples",
   "version": "0.1.0",
-
   "dependencies": {
-    "@mysten/sui.js": "^0.26.0",
+    "@mysten/bcs": "^0.7.0",
+    "@mysten/sui.js": "^0.32.1",
+    "jayson": "^4.0.0",
+    "json-rpc-2.0": "^1.5.1",
     "ts-node": "^10.9.1"
   },
   "scripts": {
