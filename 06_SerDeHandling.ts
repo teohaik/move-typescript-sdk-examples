@@ -15,4 +15,7 @@ console.log(bcs.de('string',serializedHex,"hex"));
 console.log(bcs.de('string',serializedBase64,"base64"));
 
 
+console.log("test = ", bcs.de('string' , 'AEZ1Fpwd1XOj+T0MOK9/RrmHyuIVKTVQct4+7IktDRWj' ,"base64"));
+
+
 
