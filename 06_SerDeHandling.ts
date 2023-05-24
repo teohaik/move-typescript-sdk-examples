@@ -17,5 +17,25 @@ console.log(bcs.de('string',serializedBase64,"base64"));
 
 console.log("test = ", bcs.de('string' , 'AEZ1Fpwd1XOj+T0MOK9/RrmHyuIVKTVQct4+7IktDRWj' ,"base64"));
 
+bcs.registerStructType("AccData", {
+    id: "u64",
+    name: "string",
+    type: "string",
+    gender: "u8",
+    att_keys: "vector<string>",
+    att_values: "vector<string>",
+    url: "string",
+});
 
 
+let uint8Array = bcs
+    .ser("AccData", {
+        id: 1,
+        name: "Basic Helmet",
+        type: "Helmet",
+        gender: 0,
+        att_keys: ["type"],
+        att_values: ["belt"],
+        url: "https://cdn.discordapp.com/attachments/942580584994205696/1105991970096156783/Basic_Helmet.png",
+    })
+    .toBytes();
