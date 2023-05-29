@@ -1,12 +1,13 @@
 
 module teokiosk::character{
-    use std::string::{utf8, String};
     use sui::tx_context::{sender, TxContext};
+    use sui::package::{Self};
+    use std::string::{utf8, String};
     use sui::object::{Self,  UID};
     use sui::transfer;
+    use sui::display;
 
     use sui::kiosk::{Self,Kiosk};
-
 
     struct Character has key, store {
         id: UID,
@@ -14,14 +15,42 @@ module teokiosk::character{
         url: String
     }
 
+    struct CHARACTER has drop {}
+
     /// Capability granting mint permission.
     struct MintCap has key, store {id: UID }
 
-    fun init(ctx: &mut TxContext){
+    fun init(otw: CHARACTER, ctx: &mut TxContext){
         let mintCap = MintCap{
             id: object::new(ctx)
         };
+
+        let capy = mint(&mut mintCap, utf8(b"test"), ctx);
+
+        transfer::public_transfer(capy, sender(ctx));
         transfer::public_transfer(mintCap, sender(ctx));
+
+        // Claim the `Publisher` for the package
+        let publisher = package::claim(otw, ctx);
+
+        let keys = vector[
+            utf8(b"url"),
+        ];
+
+        let values = vector[
+            utf8(b"{url}"),
+        ];
+
+        let display = display::new_with_fields<Character>(
+            &publisher, keys, values, ctx
+        );
+
+        // Commit first version of `Display` to apply changes.
+        display::update_version(&mut display);
+        transfer::public_transfer(display, sender(ctx));
+        transfer::public_transfer(publisher, sender(ctx));
+
+
     }
 
     /// Create new `Avatar` struct.
