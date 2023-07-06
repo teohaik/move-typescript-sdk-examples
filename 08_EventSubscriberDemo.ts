@@ -35,12 +35,12 @@ const packageFiltering = provider.subscribeEvent({
 const moveModuleFiltering = provider.subscribeEvent({
     filter: {
         MoveModule:
-            { package: "0x503844c50dc9f99c1c58d7bda67a22597628caf6c5be446ea3a230f54a9e8975",
-                module: "testnet_nft"
+            { package: "0x00b53b0f4174108627fbee72e2498b58d6a2714cded53fac537034c220d26302",
+                module: "pyth"
             }
     },
     onMessage(event: SuiEvent) {
-        console.log("testnet_nft Event Happened! = ", event);
+        console.log("pyth Event Happened! = ", event);
     },
 }).then(SubscriptionId => {
     console.log("Subscriber subscribed. Listening to ", connOptions.fullnode,
