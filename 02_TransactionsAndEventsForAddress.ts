@@ -1,9 +1,10 @@
 
 import {JsonRpcProvider, Connection, Checkpoint} from '@mysten/sui.js';
 import {CheckpointPage} from "@mysten/sui.js/src/types/checkpoints";
+import {getFullnodeUrl} from "@mysten/sui.js/client";
 
 const connOptions = new Connection({
-    fullnode: 'https://fullnode.testnet.sui.io:443',
+    fullnode: getFullnodeUrl("testnet")
 });
 
 let provider = new JsonRpcProvider(connOptions);

@@ -2,10 +2,11 @@
  * Retrieves all Objects owned by a given address
  */
 import {Connection, JsonRpcProvider} from "@mysten/sui.js";
+import {getFullnodeUrl} from "@mysten/sui.js/client";
 
 
 const connOptions = new Connection({
-    fullnode: 'https://suifrens-rpc.testnet.sui.io:443',
+    fullnode: getFullnodeUrl("testnet")
 });
 
 let provider = new JsonRpcProvider(connOptions);

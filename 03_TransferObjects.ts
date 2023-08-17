@@ -1,10 +1,10 @@
-import {Ed25519Keypair, JsonRpcProvider, RawSigner,  Connection} from '@mysten/sui.js';
+import {Ed25519Keypair, JsonRpcProvider,  Connection} from '@mysten/sui.js';
+import {getFullnodeUrl} from "@mysten/sui.js/client";
 // Generate a new Ed25519 Keypair
 const keypair = new Ed25519Keypair();
 
 const connOptions = new Connection({
-    fullnode: 'https://fullnode.testnet.sui.io:443',
-    faucet:  'https://fullnode.testnet.sui.io:443/faucet'
+    fullnode: getFullnodeUrl("testnet"),
 });
 let provider = new JsonRpcProvider(connOptions);
 
