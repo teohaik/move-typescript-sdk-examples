@@ -11,7 +11,6 @@ const connOptions = new Connection({
 let provider = new JsonRpcProvider(connOptions);
 
 
-
 console.log("Getting Multiple Objects with Batch Request");
 
 
