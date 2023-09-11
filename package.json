@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "dependencies": {
     "@mysten/bcs": "^0.7.0",
-    "@mysten/sui.js": "^0.41.0",
+    "@mysten/sui.js": "^0.41.1",
     "jayson": "^4.0.0",
     "json-rpc-2.0": "^1.5.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "dotenv": "^16.0.3"
   },
   "scripts": {
     "start": "node 07_MoveCall.js"

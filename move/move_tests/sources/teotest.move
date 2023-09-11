@@ -53,7 +53,7 @@ module move_tests::teotest {
             SimpleVec {
                 id: object::new(ctx),
                 data,
-                profits: balance::z
+                profits: balance::zero()
             },
             tx_context::sender(ctx));
     }
