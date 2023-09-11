@@ -47,6 +47,21 @@ const doActions = async () => {
         ],
     });
 
+    let price2 = txb.moveCall({
+        target: `${PACKAGE_ADDRESS}::price_oracle::new_price_2`,
+        arguments: [
+            txb.object(PRICE_ADMIN_CAP_ID!),
+            txb.pure(now),
+            txb.pure("EURUSD"),
+            txb.pure([
+                ["publisher", "r", "s", "v"],
+                ["publisher-1", "rrr"+now, "ssssss"+now, "vvv"+now]
+            ], "vector<vector<string>>")
+        ],
+    });
+
+    txb.transferObjects([price2], txb.pure(adminAddress));
+
     txb.setGasBudget(1000000000);
 
     let txRes =

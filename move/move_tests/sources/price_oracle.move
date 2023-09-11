@@ -144,6 +144,7 @@ module move_tests::price_oracle {
                 let key = vector::borrow(publisherKeys, i);
                 let value = vector::borrow(publisherValues, i);
                 vec_map::insert(&mut publisherMap, *key, *value);
+                i = i+1;
             };
             vec_map::insert(&mut publishersMap, publisherIndex, publisherMap);
             index = index + 1;
