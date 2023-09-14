@@ -34,7 +34,7 @@ module move_tests::price_oracle {
         publishers: VecMap<u8, VecMap<String, String>>,
     }
 
-    struct TeoPriceOracle has key {
+    struct TeoPriceOracle has key , store{
         id: UID
     }
 
@@ -47,7 +47,7 @@ module move_tests::price_oracle {
         let teoPriceOracle = TeoPriceOracle {
             id: object::new(ctx)
         };
-        transfer::share_object(teoPriceOracle);
+        transfer::public_transfer(teoPriceOracle, tx_context::sender(ctx)  );
     }
 
     fun new_price(

@@ -1,7 +1,6 @@
 import {
     Ed25519Keypair,
     fromB64,
-
     TransactionBlock,
 } from "@mysten/sui.js";
 
@@ -47,23 +46,8 @@ const doActions = async () => {
         ],
     });
 
-    let price2 = txb.moveCall({
-        target: `${PACKAGE_ADDRESS}::price_oracle::new_price_2`,
-        arguments: [
-            txb.object(PRICE_ADMIN_CAP_ID!),
-            txb.pure(now),
-            txb.pure("EURUSD"),
-            txb.pure([
-                ["publisher", "r", "s", "v"],
-                ["publisher-1", "rrr"+now, "ssssss"+now, "vvv"+now]
-            ], "vector<vector<string>>")
-        ],
-    });
-
-    txb.transferObjects([price2], txb.pure(adminAddress));
-
     txb.setGasBudget(1000000000);
-
+    let time = Date.now();
     let txRes =
         await client.signAndExecuteTransactionBlock({
             signer: adminKeypair,
@@ -73,14 +57,14 @@ const doActions = async () => {
                 showEffects: true, showObjectChanges: true,
             },
         });
-
+    let dur = Date.now() - time;
     let status1 = txRes.effects?.status;
     if (status1?.status !== "success") {
         console.log("process failed. Status: ", status1);
         process.exit(1);
     }
     console.log("process Finished. Status: ", status1);
-
+    console.log("Duration = ", dur, " ms");
     console.log("Check Price at:");
     console.log(`https://suiexplorer.com/object/${PRICE_ORACLE_ID}?network=testnet`);
 }
