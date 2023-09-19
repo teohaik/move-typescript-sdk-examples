@@ -7,7 +7,7 @@ export const ADMIN_ADDRESS = process.env.ADMIN_ADDRESS!;
 
 export const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY;
 
-export const USER_SECRET_KEY = process.env.BJ_PLAYER_SECRET_KEY!;
+export const USER_SECRET_KEY = process.env.USER_SECRET_KEY!;
 
 export const PUBLISHER_ID = process.env.PUBLISHER_ID!;
 export const PACKAGE_ADDRESS = process.env.PACKAGE_ADDRESS!;

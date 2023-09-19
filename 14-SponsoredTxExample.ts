@@ -37,6 +37,7 @@ const doSponsoredMint = async () => {
         ],
     });
 
+
     const kindBytes = await txb.build({client: client, onlyTransactionKind: true});
 
     let sponsoredTx = await sponsorTransaction( userAddress, // TX Sender (executor)

@@ -19,7 +19,26 @@ const listenToEvents = async () => {
     });
 };
 
-listenToEvents();
+
+
+//listenToEvents();
+
+
+const listenToEvents2 = async ()=> {
+    const unsubscribe = await client.subscribeEvent({
+        filter: {
+            Sender: '0x02a212de6a9dfa3a69e22387acfbafbb1a9e591bd9d636e7895dcfc8de05f331',
+        },
+        onMessage(event) {
+            // handle subscription notification message here. This function is called once per subscription message.
+
+            console.log("events 2")
+        },
+    });
+
+}
+
+listenToEvents2();
 
 
 //

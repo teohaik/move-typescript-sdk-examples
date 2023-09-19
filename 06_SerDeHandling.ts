@@ -39,3 +39,6 @@ let uint8Array = bcs
         url: "https://cdn.discordapp.com/attachments/942580584994205696/1105991970096156783/Basic_Helmet.png",
     })
     .toBytes();
+
+
+console.log("result = ",bcs.de("u64", Uint8Array.from([ 64, 66, 15, 0, 0, 0, 0, 0 ])));

@@ -7,6 +7,9 @@ module move_tests::teotest {
     use sui::sui::SUI;
     use sui::balance;
 
+
+    const FEE: u64 = 1_000_000;
+
     struct VecTest has key, store{
         id: UID,
         myvec: vector<u8>,
@@ -25,6 +28,9 @@ module move_tests::teotest {
         name: String,
         damage: u8
     }
+
+
+    public fun get_fee(): u64 { FEE }
 
 
     public entry fun test_vec(v: vector<u8>, name_param: vector<u8>, age_param: u8, ctx: &mut TxContext) {

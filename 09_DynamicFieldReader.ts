@@ -1,17 +1,37 @@
-import {Connection, JsonRpcProvider} from "@mysten/sui.js";
+import {getFullnodeUrl, SuiClient, SuiParsedData} from "@mysten/sui.js/client";
+import {SuiMoveObject} from "@mysten/sui.js";
 
-const connOptions = new Connection({
-    fullnode: 'https://suifrens-rpc.testnet.sui.io:443',
+const client = new SuiClient({
+    url: getFullnodeUrl("mainnet"),
 });
 
-let provider = new JsonRpcProvider(connOptions);
 
+const readTable = async function (tableId: string) {
+    client.getDynamicFields({parentId: tableId}).then(dynamicFieldPage => {
 
-let parent = '0x7ab8d6a33cc59f9d426f6f40edc727b6fa57b341c165b465dd2a6ca1c49adc5a';
-provider.getDynamicFields({parentId: parent}).then(res => {
-    provider.getDynamicFieldObject({
-        parentId: parent, name: res.data[0].name
-    }).then(res => {
-        console.log(JSON.stringify(res, null, 4));
+        const resultData = dynamicFieldPage.data;
+
+        resultData?.forEach(tableRowResult => {
+            const poolId = tableRowResult.objectId;
+            client.getObject({
+                id: poolId,
+                options: {showContent: true}
+            }).then(dynFieldForPool => {
+                const poolFields  = (dynFieldForPool.data.content as SuiMoveObject).fields.value.fields;
+                console.log("Dynamic Field id = ",dynFieldForPool.data.objectId);
+                console.log("pool_address: ",poolFields["pool_address"]);
+                console.log("is_closed: ",poolFields["is_closed"]);
+                console.log("is_show_rewarder: ",poolFields["is_closed"]);
+                console.log("project_url: ",poolFields["project_url"]);
+                console.log("show_rewarder_1: ",poolFields["show_rewarder_1"]);
+                console.log("show_rewarder_2: ",poolFields["show_rewarder_2"]);
+                console.log("show_rewarder_3: ",poolFields["show_rewarder_3"]);
+
+                console.log("--------------------------------------------------")
+            })
+        });
     });
-});
+
+}
+
+readTable('0x37f60eb2d9d227949b95da8fea810db3c32d1e1fa8ed87434fc51664f87d83cb');
