@@ -1,22 +1,18 @@
 /**
  * Retrieves all Objects owned by a given address
  */
-import {Connection, JsonRpcProvider, SUI_FRAMEWORK_ADDRESS} from "@mysten/sui.js";
+import {SUI_FRAMEWORK_ADDRESS, fromB64} from '@mysten/sui.js/utils';
+import {SuiClient} from "@mysten/sui.js/client";
 
 
-const connOptions = new Connection({
-    fullnode: 'https://fullnode.mainnet.sui.io:443',
-});
-
-let provider = new JsonRpcProvider(connOptions);
-
+const client = new SuiClient({url: "https://explorer-rpc.mainnet.sui.io/"});
 
 console.log("Getting Multiple Objects with Batch Request");
 
 
 const myAddress = '0x9a13bca12a4360885185e53f0c20bd47c7707e895cbddeed96d6daa293ca084d'; //Example Address
 
-const coinFlipObjects = provider.getOwnedObjects(
+const coinFlipObjects = client.getOwnedObjects(
     {
         owner:  myAddress,
         filter: {

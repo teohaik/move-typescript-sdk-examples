@@ -1,33 +1,29 @@
-import {
-    Ed25519Keypair,
-    fromB64,
-    TransactionBlock,
-} from "@mysten/sui.js";
+
+import {fromB64} from '@mysten/sui.js/utils';
+import {TransactionBlock} from '@mysten/sui.js/transactions';
+import {Ed25519Keypair} from '@mysten/sui.js/keypairs/ed25519';
 
 import {
     PACKAGE_ADDRESS,
-    ADMIN_SECRET_KEY,
-    SUI_NETWORK, PRICE_ADMIN_CAP_ID, PRICE_ORACLE_ID,
+    PRICE_ADMIN_CAP_ID, PRICE_ORACLE_ID,
 } from "./config";
 
-import {SuiClient} from "@mysten/sui.js/client";
-
-console.log("Connecting to SUI network: ", SUI_NETWORK);
-
+import {getFullnodeUrl, SuiClient} from "@mysten/sui.js/client";
 
 //Admin-partner signer setup
-let adminPrivateKeyArray = Uint8Array.from(Array.from(fromB64(ADMIN_SECRET_KEY!)));
+let adminPrivateKeyArray = Uint8Array.from(Array.from(fromB64(process.env.ADMIN_SECRET_KEY!)));
 const adminKeypair = Ed25519Keypair.fromSecretKey(adminPrivateKeyArray.slice(1));
 const adminAddress = adminKeypair.getPublicKey().toSuiAddress();
 
 console.log("Price Admin address: ", adminAddress);
 
 const client = new SuiClient({
-    url: SUI_NETWORK,
+    url: "http://localhost:9000"
 });
 
 
-const doActions = async () => {
+
+const publishPrice = async () => {
 
     const txb = new TransactionBlock();
 
@@ -70,4 +66,4 @@ const doActions = async () => {
 }
 
 
-doActions();
+publishPrice();
