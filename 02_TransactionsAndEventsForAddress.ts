@@ -1,13 +1,11 @@
 
-import {JsonRpcProvider, Connection, Checkpoint} from '@mysten/sui.js';
-import {CheckpointPage} from "@mysten/sui.js/src/types/checkpoints";
-import {getFullnodeUrl} from "@mysten/sui.js/client";
 
-const connOptions = new Connection({
-    fullnode: getFullnodeUrl("testnet")
+
+import {Checkpoint, CheckpointPage, getFullnodeUrl, SuiClient} from "@mysten/sui.js/client";
+
+const provider = new SuiClient({
+    url: getFullnodeUrl("testnet"),
 });
-
-let provider = new JsonRpcProvider(connOptions);
 
 /**
  *  Get latest 100 checkpoints in descending order and print Transaction Digests for each one of them
@@ -50,7 +48,9 @@ provider.getTransactionBlock({
     }
 }).then(block => {
     console.log(block.effects);
-})
+}).catch(err => {
+    console.log("Error while fetching transaction block: ");
+});
 
 
 provider.multiGetTransactionBlocks({

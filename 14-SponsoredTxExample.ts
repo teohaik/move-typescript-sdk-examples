@@ -1,6 +1,6 @@
 import {ADMIN_SECRET_KEY, PACKAGE_ADDRESS, SUI_NETWORK, USER_SECRET_KEY} from "./config";
 
-import {SuiClient} from "@mysten/sui.js/client";
+import {getFullnodeUrl, SuiClient} from "@mysten/sui.js/client";
 import {fromB64} from '@mysten/sui.js/utils';
 import {TransactionBlock} from '@mysten/sui.js/transactions';
 import {Ed25519Keypair} from '@mysten/sui.js/keypairs/ed25519';
@@ -8,7 +8,7 @@ import {Ed25519Keypair} from '@mysten/sui.js/keypairs/ed25519';
 console.log("Connecting to SUI network: ", SUI_NETWORK);
 
 const client = new SuiClient({
-    url: SUI_NETWORK,
+    url: getFullnodeUrl("testnet"),
 });
 
 let adminPrivateKeyArray = Uint8Array.from(Array.from(fromB64(ADMIN_SECRET_KEY!)));

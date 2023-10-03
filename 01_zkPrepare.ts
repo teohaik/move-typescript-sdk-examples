@@ -1,10 +1,14 @@
 import {getFullnodeUrl, SuiClient} from "@mysten/sui.js/client";
 
-import { generateNonce, generateRandomness } from '@mysten/zklogin';
-import {Ed25519Keypair, fromB64} from "@mysten/sui.js";
+import {fromB64} from '@mysten/sui.js/utils';
+import {Ed25519Keypair} from '@mysten/sui.js/keypairs/ed25519';
+import {SUI_NETWORK} from "./config";
+import {generateNonce, generateRandomness} from "@mysten/zklogin";
+
+console.log("Connecting to SUI network: ", SUI_NETWORK);
 
 const client = new SuiClient({
-    url: getFullnodeUrl("testnet")
+    url: getFullnodeUrl("testnet"),
 });
 
 //Admin signer setup
