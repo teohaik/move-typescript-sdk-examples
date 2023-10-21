@@ -35,7 +35,7 @@ switch_res=$(sui client switch --address ${ADMIN_ADDRESS})
 
 #faucet_res=$(curl --location --request POST "$FAUCET" --header 'Content-Type: application/json' --data-raw '{"FixedAmountRequest": { "recipient": '$ADMIN_ADDRESS'}}')
 
-publish_res=$(sui client publish --skip-fetch-latest-git-deps --gas-budget 2000000000 --json ${MOVE_PACKAGE_PATH})
+publish_res=$(sui client publish --skip-dependency-verification --skip-fetch-latest-git-deps --gas-budget 2000000000 --json ${MOVE_PACKAGE_PATH})
 
 echo ${publish_res} >.publish.res.json
 

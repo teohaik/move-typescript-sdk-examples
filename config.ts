@@ -21,4 +21,4 @@ export const PRICE_ORACLE_ID = process.env.PRICE_ORACLE_ID!;
 // console.log everything in the process.env object
 const keys = Object.keys(process.env);
 console.log("env contains ADMIN_ADDRESS:", keys.includes("ADMIN_ADDRESS"));
-console.log("env contains USER_SECRET_KEY:", keys.includes("BJ_PLAYER_SECRET_KEY"));
+console.log("env contains USER_SECRET_KEY:", keys.includes("ADMIN_SECRET_KEY"));
