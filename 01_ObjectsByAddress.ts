@@ -23,13 +23,20 @@ console.log("Batch array = ", capyArray);
 const myAddress = '0x6cd789e6e45489fc61959e0aaa57e573f76c57d05c3c376684f6810e899ecc37'; //Example Address
 
 
+
 const objects = client.getOwnedObjects(
-    {owner:  myAddress, options:{showContent: true}}
+    {
+        owner: myAddress,
+        options: {
+            showContent: true,
+            showType: true
+        }
+    }
 ).then(function (res) {
     console.log('Results:');
-    console.log('----- Objects Owned By Address: ' +myAddress +" ------------------- :");
+    console.log('----- Objects Owned By Address: ' + myAddress + " ------------------- :");
     res.data.forEach(obj => {
-        console.log('Object id : ' + obj.data.objectId , " - ", obj.data.content.dataType);
+        console.log('Object id : ' + obj.data.objectId, " - ", obj.data.content.dataType);
     });
     console.log('Results END--------------------------');
 });
