@@ -36,7 +36,8 @@ const objects = client.getOwnedObjects(
     console.log('Results:');
     console.log('----- Objects Owned By Address: ' + myAddress + " ------------------- :");
     res.data.forEach(obj => {
-        console.log('Object id : ' + obj.data.objectId, " - ", obj.data.content.dataType);
+        const dataType = obj.data.content.dataType;
+        console.log('Object id : ' + obj.data.objectId, " - ", dataType == "moveObject" ? obj.data.content.type : dataType );
     });
     console.log('Results END--------------------------');
 });
