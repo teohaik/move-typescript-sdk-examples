@@ -1,7 +1,7 @@
-import {getFullnodeUrl, SuiClient} from "@mysten/sui.js/client";
+import {getFullnodeUrl, SuiClient} from "@mysten/sui/client";
 
-import {fromB64} from '@mysten/sui.js/utils';
-import {Ed25519Keypair} from '@mysten/sui.js/keypairs/ed25519';
+import {fromB64} from '@mysten/sui/utils';
+import {Ed25519Keypair} from '@mysten/sui/keypairs/ed25519';
 import {SUI_NETWORK} from "./config";
 import {generateNonce, generateRandomness} from "@mysten/zklogin";
 
@@ -17,8 +17,6 @@ const adminKeypair = Ed25519Keypair.fromSecretKey(adminPrivateKeyArray.slice(1))
 const adminAddress = adminKeypair.getPublicKey().toSuiAddress();
 
 console.log("Admin address: ", adminAddress);
-
-
 
 async function doActions() {
 

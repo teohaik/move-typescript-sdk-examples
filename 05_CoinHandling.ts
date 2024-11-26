@@ -1,10 +1,9 @@
 
-import {fromB64} from '@mysten/sui.js/utils';
-import {TransactionBlock} from '@mysten/sui.js/transactions';
-import {Ed25519Keypair} from '@mysten/sui.js/keypairs/ed25519';
-import { requestSuiFromFaucetV0 } from '@mysten/sui.js/faucet';
+import {fromB64} from '@mysten/sui/utils';
+import {Transaction} from '@mysten/sui/transactions';
+import {Ed25519Keypair} from '@mysten/sui/keypairs/ed25519';
 
-import {getFullnodeUrl, SuiClient} from "@mysten/sui.js/client";
+import {getFullnodeUrl, SuiClient} from "@mysten/sui/client";
 
 //Admin-partner signer setup
 let adminPrivateKeyArray = Uint8Array.from(Array.from(fromB64(process.env.ADMIN_SECRET_KEY!)));
@@ -20,14 +19,14 @@ const client = new SuiClient({
 
 async function doSplitCoinActions (cointToSplit : string) {
 
-    const txb = new TransactionBlock();
+    const txb = new Transaction();
 
     const coinToPay = await  client.getObject({ id: cointToSplit });
 
-    let newcoins1 = txb.splitCoins(txb.gas, [txb.pure(7000000)]);
-    let newcoins2 = txb.splitCoins(txb.gas, [txb.pure(7000000)]);
+    let newcoins1 = txb.splitCoins(txb.gas, [txb.pure.u64(7000000)]);
+    let newcoins2 = txb.splitCoins(txb.gas, [txb.pure.u64(7000000)]);
 
-    txb.transferObjects([newcoins1, newcoins2], txb.pure(adminAddress!));
+    txb.transferObjects([newcoins1, newcoins2], txb.pure.address(adminAddress!));
 
     txb.setGasBudget(100000000);
 
@@ -37,9 +36,9 @@ async function doSplitCoinActions (cointToSplit : string) {
         version: coinToPay.data.version
     }]);
 
-    client.signAndExecuteTransactionBlock({
+    client.signAndExecuteTransaction({
         signer: adminKeypair,
-        transactionBlock: txb,
+        transaction: txb,
         requestType: "WaitForLocalExecution",
         options: {
             showEffects: true, showObjectChanges: true,
@@ -59,4 +58,4 @@ async function doSplitCoinActions (cointToSplit : string) {
 
 }
 
-doSplitCoinActions('0x9de03681002234a697df06c63fc748cc2899f66ac61ef463bf4ff1e5cb3db5b4');
+doSplitCoinActions('0x2b31426fdebd67f866f23fe82510c3fb26cb7229e6ea3354b722a618c3b646b6');
