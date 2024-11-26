@@ -9,7 +9,7 @@ console.log("Getting Multiple Objects with Batch Request");
 
 const myAddress = '0x7d819ea06c8dea160dce6a7df62ba3413762f05377087315441f57239198d2ac'; //Example Address
 
-const objects = client.getOwnedObjects(
+client.getOwnedObjects(
     {
         owner: myAddress,
         options: {
