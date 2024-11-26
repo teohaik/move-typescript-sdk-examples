@@ -1,35 +1,50 @@
-import { BCS, getSuiMoveConfig } from "@mysten/bcs";
+import { bcs, fromHex, toHex } from '@mysten/bcs';
 
-
-const bcs = new BCS(getSuiMoveConfig());
 
 let name = "TeoHaik";
 
-let serializedHex = bcs.ser('string', name).toString("hex");
-let serializedBase64 = bcs.ser('string', name).toString("base64");
-
-console.log(serializedHex);
-
-
-console.log(bcs.de('string',serializedHex,"hex"));
-console.log(bcs.de('string',serializedBase64,"base64"));
+let serializedHex = bcs.string().serialize(name).toHex();
+let serializedBase64 = bcs.string().serialize(name).toBase64();
+let serializedBase58 = bcs.string().serialize(name).toBase58();
 
 
-console.log("test = ", bcs.de('string' , 'AEZ1Fpwd1XOj+T0MOK9/RrmHyuIVKTVQct4+7IktDRWj' ,"base64"));
+console.log("\n\n");
+console.log("Name  plain = ",name);
+console.log("Name    Hex = ",serializedHex);
+console.log("Name Base64 = ",serializedBase64);
+console.log("Name Base58 = ",serializedBase58);
 
-bcs.registerStructType("AccData", {
-    id: "u64",
-    name: "string",
-    type: "string",
-    gender: "u8",
-    att_keys: "vector<string>",
-    att_values: "vector<string>",
-    url: "string",
+
+
+const namefromHex = bcs.string().fromHex(serializedHex);
+const namefromBase64 = bcs.string().fromBase64(serializedBase64);
+const namefromBase58 = bcs.string().fromBase58(serializedBase58);
+console.log("namefromHex = ",namefromHex);
+
+console.log("namefromBase64 = ",namefromBase64);
+console.log("namefromBase58 = ",namefromBase58);
+
+
+const bytesArray = bcs.bytes(4).serialize(Uint8Array.from([1, 2, 3, 4]) ).toBytes();
+
+
+
+const intArray = bcs.fixedArray(4, bcs.u8()).serialize([1, 2, 3, 4]).toBytes();
+const stringArray = bcs.fixedArray(3, bcs.string()).serialize(['a', 'b', 'c']).toBytes();
+
+
+const AccData = bcs.struct("AccData", {
+    id: bcs.u64(),
+    name: bcs.string(),
+    type: bcs.string(),
+    gender: bcs.u8(),
+    att_keys: bcs.vector(bcs.string()),
+    att_values: bcs.vector(bcs.string()),
+    url: bcs.string()
 });
 
 
-let uint8Array = bcs
-    .ser("AccData", {
+let serializedAccDataObject = AccData.serialize({
         id: 1,
         name: "Basic Helmet",
         type: "Helmet",
@@ -40,5 +55,10 @@ let uint8Array = bcs
     })
     .toBytes();
 
+const accData = AccData.parse(serializedAccDataObject);
 
-console.log("result = ",bcs.de("u64", Uint8Array.from([ 64, 66, 15, 0, 0, 0, 0, 0 ])));
+console.log("serialized accData result = ",serializedAccDataObject);
+console.log("de-serialized accData result = ",accData);
+
+const bytes = bcs.bytes(4).serialize(Uint8Array.from([1, 2, 3, 4])).toBytes();
+console.log("serialized bytes result = ",bytes);
