@@ -7,33 +7,42 @@ const suiClient = new SuiClient({
 
 interface GetVoteNftIdProps {
     suiClient: SuiClient;
-    address: string;
+    memeNftId: string;
 }
 
 
-const getNFTVotes = ({
+async function getVotes(suiClient, memeNftId: string) {
+    return await suiClient.getOwnedObjects({
+        owner: memeNftId,
+        filter: {
+            StructType: `0x6724d824513109d0ac8f3e72182e59e724becd2f935c92604686a441ceae4030::vote::Vote`,
+        }
+        , options: {
+            showContent: true,
+            showType: true
+        }
+    });
+}
+
+const getNFTVotes = async ({
                                suiClient,
-                               address,
+                               memeNftId ,
                            }: GetVoteNftIdProps): Promise<number> => {
-    return suiClient
-        .getOwnedObjects({
-            owner: address,
-            filter: {
-                StructType: `0x6724d824513109d0ac8f3e72182e59e724becd2f935c92604686a441ceae4030::vote::Vote`,
-            }
-            ,options:{
-                showContent: true,
-                showType: true
-            }
-        })
-        .then((res) => {
-            const objects = res?.data || [];
-            return objects.length;
-        })
-        .catch((err) => {
-            console.error(`Error fetching votes for address ${address}:`, err);
-            return 0; // Returning 0 votes if there is an error
-        });
+
+    let votesCount = 0;
+    let res = await getVotes(suiClient, memeNftId);
+
+    votesCount = res.data.length;
+
+    while (res.hasNextPage) {
+        res = await getVotes(suiClient, memeNftId);
+        votesCount += res.data.length;
+    }
+
+    console.log("votesCount = ", votesCount);
+    return votesCount;
 };
 
-getNFTVotes( {suiClient, address: "0x316bee8465ef2e956cc8aa732ca6020eb6281283f1347b147c3b4134d3d82952" });
+
+
+getNFTVotes( {suiClient, memeNftId: "0x316bee8465ef2e956cc8aa732ca6020eb6281283f1347b147c3b4134d3d82952" });
