@@ -11,9 +11,10 @@ interface GetVoteNftIdProps {
 }
 
 
-async function getVotes(suiClient, memeNftId: string) {
+async function getVotes(suiClient, cursor, memeNftId: string) {
     return await suiClient.getOwnedObjects({
         owner: memeNftId,
+        cursor,
         filter: {
             StructType: `0x6724d824513109d0ac8f3e72182e59e724becd2f935c92604686a441ceae4030::vote::Vote`,
         }
@@ -30,12 +31,12 @@ const getNFTVotes = async ({
                            }: GetVoteNftIdProps): Promise<number> => {
 
     let votesCount = 0;
-    let res = await getVotes(suiClient, memeNftId);
+    let res = await getVotes(suiClient, null, memeNftId);
 
     votesCount = res.data.length;
 
     while (res.hasNextPage) {
-        res = await getVotes(suiClient, memeNftId);
+        res = await getVotes(suiClient, res.nextCursor, memeNftId);
         votesCount += res.data.length;
     }
 
